@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.ResourceLocation;
 
 public class PotionResurrectionSickness extends Potion {
@@ -26,8 +27,10 @@ public class PotionResurrectionSickness extends Potion {
 	@Override
 	public void performEffect(EntityLivingBase elb, int amp) {
 		if (elb instanceof EntityPlayer) {
-			// half the speed of normal Hunger
-			((EntityPlayer)elb).addExhaustion((amp + 1) / 400f);
+			// death isn't a food source, just a sneaky saturation source
+			FoodStats foods = ((EntityPlayer)elb).getFoodStats();
+			float sat = foods.getSaturationLevel();
+			if (sat >= 1 && sat < 12) foods.setFoodSaturationLevel(sat + 0.03f);
 		}
 	}
 	

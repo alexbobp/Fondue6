@@ -11,7 +11,7 @@ death.attack.fondue.sizzle=%1$s couldn't stop sizzling
 subtitles.fondue.sizzle=Flesh sizzles
 
 effect.fondue.pale=Pale
-effect.fondue.resurrection_sickness=Rez Sickness
+effect.fondue.resurrection_sickness=DETERMINATION
 
 fondue.bedsAreDisabled=§6§lDisabled. §rCrafting ingredient only.
 fondue.findObelisks=Find Obelisks in the world to set your spawn.

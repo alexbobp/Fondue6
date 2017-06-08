@@ -6,6 +6,7 @@ import com.elytradev.fondue.Goal;
 import com.elytradev.fondue.module.Module;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.MinecraftForge;
@@ -47,12 +48,15 @@ public class ModuleResurrectionSickness extends Module {
 	@SubscribeEvent
 	public void onPlayerRespawn(PlayerRespawnEvent e) {
 		if (e.isEndConquered()) return;
-		PotionEffect sickness = new PotionEffect(RESURRECTION_SICKNESS, 18000);
+
+		PotionEffect sickness = new PotionEffect(RESURRECTION_SICKNESS, 150*20);
 		sickness.setCurativeItems(Collections.emptyList());
 		e.player.addPotionEffect(sickness);
-		e.player.setHealth(e.player.getMaxHealth()/2);
-		// Death is NOT a viable food source.
-		e.player.getFoodStats().setFoodLevel(8);
+
+		e.player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 15*20));
+		e.player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 15*20));
+		e.player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 15*20));
+		e.player.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 60*20, 4));
 	}
 	
 }
