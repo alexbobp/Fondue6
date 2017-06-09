@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.lwjgl.opengl.GL11;
-
 import com.elytradev.fondue.Goal;
 import com.elytradev.fondue.module.ModuleClient;
 import com.elytradev.fondue.module.waypoints.ModuleWaypoints;
@@ -38,6 +36,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import org.lwjgl.opengl.GL11;
 
 public class ModuleWaypointsClient extends ModuleClient {
 
@@ -86,16 +86,19 @@ public class ModuleWaypointsClient extends ModuleClient {
 	
 	@SubscribeEvent
 	public void onPostRenderOverlay(RenderGameOverlayEvent.Post e) {
+		checkForWaypoints: {
+			for (CompassWidget widget: widgets) {
+				if (widget instanceof WaypointCompassWidget) break checkForWaypoints;
+			}
+			return;
+		}
+
 		if (e.getType() == ElementType.ALL) {
 			ItemStack glasses = null;
-			if (
-				FruitPhone.inst.optionalMode ||
-				((ClientProxy)FruitPhone.proxy).alwaysOn ||
-				!ClientProxy.doesServerHaveMod() ||
-				(
-					Minecraft.getMinecraft().player.hasCapability(FruitPhone.CAPABILITY_EQUIPMENT, null) &&
-					!(glasses = Minecraft.getMinecraft().player.getCapability(FruitPhone.CAPABILITY_EQUIPMENT, null).glasses).isEmpty()
-				)); {
+			if (Minecraft.getMinecraft().player.hasCapability(FruitPhone.CAPABILITY_EQUIPMENT, null))
+				glasses = Minecraft.getMinecraft().player.getCapability(FruitPhone.CAPABILITY_EQUIPMENT, null).glasses;
+
+			{
 				int color = -1;
 				if (glasses != null) {
 					if (glasses.getItem() instanceof ItemFruitPassive) {
@@ -106,8 +109,8 @@ public class ModuleWaypointsClient extends ModuleClient {
 				
 				float scale = FruitPhone.inst.glassesScale;
 				
-				int width = 127;
-				int height = 8;
+				int width = 400;
+				int height = 7;
 				
 				int objWidth = (int)(width*scale)+4;
 				int objHeight = (int)(height*scale)+4;
