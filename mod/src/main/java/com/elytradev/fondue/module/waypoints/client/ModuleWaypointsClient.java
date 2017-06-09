@@ -95,7 +95,7 @@ public class ModuleWaypointsClient extends ModuleClient {
 				(
 					Minecraft.getMinecraft().player.hasCapability(FruitPhone.CAPABILITY_EQUIPMENT, null) &&
 					!(glasses = Minecraft.getMinecraft().player.getCapability(FruitPhone.CAPABILITY_EQUIPMENT, null).glasses).isEmpty()
-				)) {
+				)); {
 				int color = -1;
 				if (glasses != null) {
 					if (glasses.getItem() instanceof ItemFruitPassive) {
