@@ -24,6 +24,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class ModuleSpiritGraves extends Module {
@@ -55,14 +56,14 @@ public class ModuleSpiritGraves extends Module {
 		GameRegistry.register(DISPEL = new SoundEvent(new ResourceLocation("fondue", "dispel")).setRegistryName("dispel"));
 		GRAVE = new ItemSpiritBottle().setUnlocalizedName("fondue.spiritBottle").setRegistryName("spirit_bottle").setMaxStackSize(3);
 		GameRegistry.register(GRAVE);
-		GameRegistry.addRecipe(new ShapedOreRecipeHighPriority(GRAVE,
+		GameRegistry.addRecipe(new ShapedOreRecipe(GRAVE,
 				"%^%",
 				"#@#",
 				" # ",
 				'^', Items.DIAMOND,
 				'%', Blocks.CHEST,
 				'@', Items.ENDER_PEARL,
-				'#', "blockGlassRed"
+				'#', "blockGlass"
 		));
 		MinecraftForge.EVENT_BUS.register(this);
 		Fondue.inst.network.register(GraveDispelMessage.class);

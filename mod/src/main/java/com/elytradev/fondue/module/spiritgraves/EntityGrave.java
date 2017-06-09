@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.elytradev.fondue.Fondue;
+import com.elytradev.fondue.module.Module;
 import com.elytradev.fondue.module.spiritgraves.client.ModuleSpiritGravesClient;
 import com.elytradev.fruitphone.FruitPhone;
 import com.elytradev.fruitphone.capability.FruitEquipmentCapability;
@@ -42,7 +43,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 
-import static com.elytradev.fondue.module.spiritgraves.ModuleSpiritGraves.GRAVE;
+import com.elytradev.fondue.module.spiritgraves.ModuleSpiritGraves;
 
 public class EntityGrave extends Entity {
 
@@ -329,9 +330,9 @@ public class EntityGrave extends Entity {
 		inventory.clear();
 		int i = 0;
 		for (ItemStack is : inv.mainInventory) {
-			if (!foundGrave && is != null && is.getCount() > 0 && is.getItem() == GRAVE) {
+			if (!foundGrave && is != null && is.getCount() > 0 && is.getItem() == ModuleSpiritGraves.GRAVE) {
 				foundGrave = true;
-				is.setCount(is.getCount() - 1);
+				is.shrink(1);
 				if (is.getCount() == 0) is = new ItemStack(Items.GLASS_BOTTLE);
 				else ejectBottle = true;
 			}

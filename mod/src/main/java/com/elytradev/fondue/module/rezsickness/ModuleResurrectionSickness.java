@@ -49,13 +49,12 @@ public class ModuleResurrectionSickness extends Module {
 	public void onPlayerRespawn(PlayerRespawnEvent e) {
 		if (e.isEndConquered()) return;
 
-		PotionEffect sickness = new PotionEffect(RESURRECTION_SICKNESS, 150*20);
+		PotionEffect sickness = new PotionEffect(RESURRECTION_SICKNESS, 5*60*20);
 		sickness.setCurativeItems(Collections.emptyList());
 		e.player.addPotionEffect(sickness);
 
-		e.player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 15*20));
-		e.player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 15*20));
-		e.player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 15*20));
+		e.player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 10*20));
+		e.player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 10*20));
 		e.player.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 60*20, 4));
 	}
 	
