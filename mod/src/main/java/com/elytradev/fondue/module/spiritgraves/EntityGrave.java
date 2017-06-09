@@ -21,6 +21,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,6 +41,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
+
+import static com.elytradev.fondue.module.spiritgraves.ModuleSpiritGraves.GRAVE;
 
 public class EntityGrave extends Entity {
 
@@ -315,12 +318,23 @@ public class EntityGrave extends Entity {
 	public NonNullList<ItemStack> getExtras() {
 		return extras;
 	}
-	
+
+	public boolean foundGrave;
+	public boolean ejectBottle;
+
 	public void populateFrom(EntityPlayer player) {
+		foundGrave = false;
+		ejectBottle = false;
 		InventoryPlayer inv = player.inventory;
 		inventory.clear();
 		int i = 0;
 		for (ItemStack is : inv.mainInventory) {
+			if (!foundGrave && is != null && is.getCount() > 0 && is.getItem() == GRAVE) {
+				foundGrave = true;
+				is.setCount(is.getCount() - 1);
+				if (is.getCount() == 0) is = new ItemStack(Items.GLASS_BOTTLE);
+				else ejectBottle = true;
+			}
 			inventory.set(i, is);
 			i++;
 		}

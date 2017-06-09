@@ -6,6 +6,9 @@ item.fondue.dyed_diamond_pickaxe=Dyemond Pickaxe
 item.fondue.spectral_axe.name=Spectral Axe
 item.fondue.spectral_axe.hint=§5It's all in your head
 
+item.fondue.spiritBottle.name=Spirit Bottle
+item.fondue.spiritBottle.hint=Engulfs your stuff if you die.
+
 death.attack.fondue.sizzle=%1$s couldn't stop sizzling
 
 subtitles.fondue.sizzle=Flesh sizzles

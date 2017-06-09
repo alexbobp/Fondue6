@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import com.elytradev.fondue.module.Module;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import org.lwjgl.opengl.GL11;
 
 import com.elytradev.fondue.Goal;
@@ -56,6 +59,8 @@ public class ModuleSpiritGravesClient extends ModuleClient {
 	
 	@Override
 	public void onPreInit(FMLPreInitializationEvent e) {
+		ModelLoader.setCustomModelResourceLocation(ModuleSpiritGraves.GRAVE, 0, new ModelResourceLocation("fondue:spirit_bottle#inventory"));
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityGrave.class, RenderGrave::new);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

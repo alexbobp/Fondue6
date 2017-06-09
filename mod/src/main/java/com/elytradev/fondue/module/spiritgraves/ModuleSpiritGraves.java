@@ -5,13 +5,17 @@ import java.util.Set;
 import com.elytradev.fondue.Fondue;
 import com.elytradev.fondue.Goal;
 import com.elytradev.fondue.module.Module;
+import com.elytradev.fondue.module.stoned.ShapedOreRecipeHighPriority;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
@@ -20,6 +24,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class ModuleSpiritGraves extends Module {
 
@@ -40,12 +45,25 @@ public class ModuleSpiritGraves extends Module {
 	
 	public static SoundEvent SPIRIT;
 	public static SoundEvent DISPEL;
+
+	public static Item GRAVE;
 	
 	@Override
 	public void onPreInit(FMLPreInitializationEvent e) {
 		EntityRegistry.registerModEntity(new ResourceLocation("fondue", "spirit_grave"), EntityGrave.class, "spirit_grave", Fondue.nextEntityId++, Fondue.inst, 64, 2, true);
 		GameRegistry.register(SPIRIT = new SoundEvent(new ResourceLocation("fondue", "spirit")).setRegistryName("spirit"));
 		GameRegistry.register(DISPEL = new SoundEvent(new ResourceLocation("fondue", "dispel")).setRegistryName("dispel"));
+		GRAVE = new ItemSpiritBottle().setUnlocalizedName("fondue.spiritBottle").setRegistryName("spirit_bottle").setMaxStackSize(3);
+		GameRegistry.register(GRAVE);
+		GameRegistry.addRecipe(new ShapedOreRecipeHighPriority(GRAVE,
+				"%^%",
+				"#@#",
+				" # ",
+				'^', Items.DIAMOND,
+				'%', Blocks.CHEST,
+				'@', Items.ENDER_PEARL,
+				'#', "blockGlassRed"
+		));
 		MinecraftForge.EVENT_BUS.register(this);
 		Fondue.inst.network.register(GraveDispelMessage.class);
 	}
@@ -55,14 +73,15 @@ public class ModuleSpiritGraves extends Module {
 		if (e.getEntity() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)e.getEntity();
 			EntityGrave grave = new EntityGrave(e.getEntity().world);
-			grave.setPosition(player.posX, player.posY-0.5, player.posZ);
+			grave.setPosition(player.posX, player.posY, player.posZ);
 			grave.motionY = 0.85;
 			grave.populateFrom(player);
-			if (!grave.isEmpty()) {
+			if (!grave.isEmpty() && grave.foundGrave) {
 				grave.clear(player);
 				player.world.spawnEntity(grave);
-			} else {
-				player.sendMessage(new TextComponentTranslation("fondue.graveEmpty"));
+				if (grave.ejectBottle)
+					player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ,
+							new ItemStack(Items.GLASS_BOTTLE)));
 			}
 		}
 	}
