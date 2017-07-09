@@ -1,2 +1,6 @@
 *.jar
 !gradle-wrapper.jar
+.idea
+*.iml
+*.ipr
+*.iws

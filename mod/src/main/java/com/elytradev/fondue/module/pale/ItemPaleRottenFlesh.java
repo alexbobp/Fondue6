@@ -46,7 +46,7 @@ public class ItemPaleRottenFlesh extends ItemFood {
 			dur = active.getDuration()+200;
 			lvl = active.getAmplifier()+1;
 			if (lvl > 3) {
-				lvl = 3;
+				lvl--;
 				player.playSound(SoundEvents.ENTITY_ZOMBIE_AMBIENT, 0.5f, 0.8f);
 			}
 		}

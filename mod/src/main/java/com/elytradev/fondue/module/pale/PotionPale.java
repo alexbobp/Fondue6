@@ -39,6 +39,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PotionPale extends Potion {
 
@@ -94,6 +96,7 @@ public class PotionPale extends Potion {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
 		mc.renderEngine.bindTexture(PALE_TEX);
 		GlStateManager.color(1, 1, 1, alpha);
@@ -101,6 +104,7 @@ public class PotionPale extends Potion {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
 		mc.renderEngine.bindTexture(PALE_TEX);
 		Gui.drawModalRectWithCustomSizedTexture(x+6, y+7, 0, 0, 18, 18, 18, 18);

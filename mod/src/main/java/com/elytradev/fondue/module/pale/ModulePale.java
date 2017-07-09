@@ -75,9 +75,7 @@ public class ModulePale extends Module {
 			if (active != null) {
 				dur = active.getDuration()+200;
 				lvl = active.getAmplifier()+1;
-				if (lvl > 3) {
-					lvl = 3;
-				}
+				if (lvl > 3) lvl--;
 			}
 			ew.addPotionEffect(new PotionEffect(PALE, dur, lvl));
 			ew.heal(1);
