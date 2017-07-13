@@ -4,14 +4,15 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import com.elytradev.fondue.module.Module;
+import com.elytradev.fondue.module.spiritgraves.EntityGrave;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import com.elytradev.fondue.Goal;
 import com.elytradev.fondue.module.ModuleClient;
-import com.elytradev.fondue.module.spiritgraves.EntityGrave;
 import com.elytradev.fondue.module.spiritgraves.ModuleSpiritGraves;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
@@ -58,6 +59,7 @@ public class ModuleSpiritGravesClient extends ModuleClient {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void onPreInit(FMLPreInitializationEvent e) {
 		ModelLoader.setCustomModelResourceLocation(ModuleSpiritGraves.GRAVE, 0, new ModelResourceLocation("fondue:spirit_bottle#inventory"));
 
@@ -76,6 +78,7 @@ public class ModuleSpiritGravesClient extends ModuleClient {
 	private Map<EntityGrave, GraveSound> sounds = Maps.newHashMap();
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void onRender(RenderTickEvent e) {
 		if (e.phase == Phase.START) {
 			oldGamma = Minecraft.getMinecraft().gameSettings.gammaSetting;
@@ -88,6 +91,7 @@ public class ModuleSpiritGravesClient extends ModuleClient {
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void onFOVUpdate(FOVUpdateEvent e) {
 		if (rawStareTicks > 40) {
 			e.setNewfov(1-(Math.min(0.6667f, ((rawStareTicks+Minecraft.getMinecraft().getRenderPartialTicks())-40)/26f)));
@@ -95,6 +99,7 @@ public class ModuleSpiritGravesClient extends ModuleClient {
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void onPreRenderOverlay(RenderGameOverlayEvent.Pre e) {
 		if (e.getType() == ElementType.ALL) {
 			Minecraft.getMinecraft().entityRenderer.setupOverlayRendering();
@@ -123,6 +128,7 @@ public class ModuleSpiritGravesClient extends ModuleClient {
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void onPostRenderOverlay(RenderGameOverlayEvent.Post e) {
 		if (e.getType() == ElementType.ALL) {
 			if (Minecraft.getMinecraft().objectMouseOver != null && Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityGrave) {
@@ -147,6 +153,7 @@ public class ModuleSpiritGravesClient extends ModuleClient {
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void onTick(ClientTickEvent e) {
 		if (e.phase == Phase.START) {
 			if (Minecraft.getMinecraft().objectMouseOver != null &&
@@ -176,7 +183,8 @@ public class ModuleSpiritGravesClient extends ModuleClient {
 			}
 		}
 	}
-	
+
+	@SideOnly(Side.CLIENT)
 	public void onUpdate(EntityGrave entityGrave) {
 		if (!sounds.containsKey(entityGrave)) {
 			GraveSound sound = new GraveSound(ModuleSpiritGraves.SPIRIT, 0.25f, 1, SoundCategory.AMBIENT, entityGrave);

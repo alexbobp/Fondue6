@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 import com.elytradev.fondue.Fondue;
-import com.elytradev.fondue.module.Module;
 import com.elytradev.fondue.module.spiritgraves.client.ModuleSpiritGravesClient;
 import com.elytradev.fruitphone.FruitPhone;
 import com.elytradev.fruitphone.capability.FruitEquipmentCapability;
@@ -43,10 +42,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 
-import com.elytradev.fondue.module.spiritgraves.ModuleSpiritGraves;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityGrave extends Entity {
-
 	private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.createKey(EntityGrave.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final DataParameter<String> OWNER_NAME = EntityDataManager.createKey(EntityGrave.class, DataSerializers.STRING);
 	private static final DataParameter<Integer> SELECTED_SLOT = EntityDataManager.createKey(EntityGrave.class, DataSerializers.VARINT);
@@ -68,8 +67,7 @@ public class EntityGrave extends Entity {
 	private static final DataParameter<ItemStack> CHESTPLATE = EntityDataManager.createKey(EntityGrave.class, DataSerializers.OPTIONAL_ITEM_STACK);
 	private static final DataParameter<ItemStack> LEGGINGS = EntityDataManager.createKey(EntityGrave.class, DataSerializers.OPTIONAL_ITEM_STACK);
 	private static final DataParameter<ItemStack> BOOTS = EntityDataManager.createKey(EntityGrave.class, DataSerializers.OPTIONAL_ITEM_STACK);
-	
-	
+
 	public static final int INVENTORY_SIZE =
 			36 + // Main
 			 4 + // Armor
@@ -85,7 +83,14 @@ public class EntityGrave extends Entity {
 	
 	public EntityGrave(World worldIn) {
 		super(worldIn);
+	}
+
+	public EntityGrave(World worldIn, double x, double y, double z, EntityPlayer player) {
+		super(worldIn);
 		setSize(0.5f, 0.5f);
+		setPosition(x, y, z);
+		motionY = 0.85;
+		populateFrom(player);
 	}
 	
 	@Override
@@ -320,11 +325,10 @@ public class EntityGrave extends Entity {
 		return extras;
 	}
 
-	public boolean foundGrave;
+	public boolean foundGrave = !ModuleSpiritGraves.cfg.requiresBottle;
 	public boolean ejectBottle;
 
 	public void populateFrom(EntityPlayer player) {
-		foundGrave = false;
 		ejectBottle = false;
 		InventoryPlayer inv = player.inventory;
 		inventory.clear();
@@ -406,6 +410,7 @@ public class EntityGrave extends Entity {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void onUpdate() {
 		super.onUpdate();
 		if (Fondue.isModuleLoaded(ModuleSpiritGravesClient.class)) {

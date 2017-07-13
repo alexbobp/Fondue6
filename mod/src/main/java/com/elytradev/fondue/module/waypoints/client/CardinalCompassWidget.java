@@ -48,10 +48,11 @@ public class CardinalCompassWidget extends CompassWidget {
 	public double getFalloffSize() {
 		return -1;
 	}
-	
+
 	@Override
 	public double getFalloffStart() {
 		return -1;
 	}
 
+	@Override public boolean stillAlive() {return true;}
 }

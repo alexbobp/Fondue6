@@ -1,7 +1,6 @@
 package com.elytradev.fondue.module.spiritgraves.client;
 
 import com.elytradev.fondue.module.spiritgraves.EntityGrave;
-
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;

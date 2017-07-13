@@ -34,13 +34,8 @@ public class ModuleFurnaceBread extends Module {
 	
 	@Override
 	public void onPreInit(FMLPreInitializationEvent e) {
-		Iterator<IRecipe> iter = CraftingManager.getInstance().getRecipeList().iterator();
-		while (iter.hasNext()) {
-			IRecipe ir = iter.next();
-			if (ir instanceof ShapedRecipes && ir.getRecipeOutput().getItem() == Items.BREAD) {
-				iter.remove();
-			}
-		}
+		CraftingManager.getInstance().getRecipeList()
+				.removeIf(ir -> ir instanceof ShapedRecipes && ir.getRecipeOutput().getItem() == Items.BREAD);
 		
 		FurnaceRecipes.instance().addSmelting(Items.WHEAT, new ItemStack(Items.BREAD), 0);
 	}

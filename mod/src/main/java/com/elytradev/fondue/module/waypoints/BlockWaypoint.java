@@ -19,6 +19,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import static net.minecraft.item.EnumDyeColor.*;
@@ -148,6 +150,7 @@ public class BlockWaypoint extends Block {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		super.randomDisplayTick(stateIn, worldIn, pos, rand);
 	}

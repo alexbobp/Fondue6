@@ -2,15 +2,11 @@ package com.elytradev.fondue.module.waypoints.client;
 
 import com.elytradev.fondue.module.waypoints.WaypointShape;
 import com.elytradev.fondue.module.waypoints.WaypointStyle;
-import com.elytradev.fruitphone.client.render.Rendering;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 public class WaypointCompassWidget extends BlockCompassWidget {
-
 	private static final ResourceLocation WAYPOINT = new ResourceLocation("fondue", "textures/gui/waypoint.png");
 	
 	public int color;
@@ -24,26 +20,11 @@ public class WaypointCompassWidget extends BlockCompassWidget {
 		this.style = style;
 	}
 
-	@Override
-	public void render() {
-		Rendering.color3(color);
-		Minecraft.getMinecraft().getTextureManager().bindTexture(WAYPOINT);
-		Gui.drawModalRectWithCustomSizedTexture(0, 0, shape.ordinal()*8, style.ordinal()*8, 8, 8, 72, 16);
-	}
-
-	@Override
-	public int getWidth() {
-		return 8;
-	}
-	
-	@Override
-	public double getFalloffSize() {
-		return 256;
-	}
-	
-	@Override
-	public double getFalloffStart() {
-		return 512;
-	}
-
+	@Override public int getColor() {return color;}
+	@Override public int getU() {return shape.ordinal();}
+	@Override public int getV() {return style.ordinal();}
+	@Override public ResourceLocation getTexture() {return WAYPOINT;}
+	@Override public int getTexWidth() {return 72;}
+	@Override public int getTexHeight() {return 16;}
+	@Override public boolean stillAlive() {return true;}
 }

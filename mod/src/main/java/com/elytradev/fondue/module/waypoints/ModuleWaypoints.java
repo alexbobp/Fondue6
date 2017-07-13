@@ -120,7 +120,7 @@ public class ModuleWaypoints extends Module {
 	
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
-		new MessageSetWaypoints(getDataFor(e.player.world).all()).sendTo(e.player);;
+		new MessageSetWaypoints(getDataFor(e.player.world).all()).sendTo(e.player);
 	}
 	
 	@SubscribeEvent
