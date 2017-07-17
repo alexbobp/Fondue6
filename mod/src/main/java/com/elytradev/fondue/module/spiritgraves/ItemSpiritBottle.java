@@ -15,6 +15,9 @@ public class ItemSpiritBottle extends Item {
 	@SideOnly(CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		super.addInformation(stack, playerIn, tooltip, advanced);
-		tooltip.add(I18n.format("item.fondue.spirit_bottle.hint"));
+		if (ModuleSpiritGraves.cfg.requiresBottle)
+			tooltip.add(I18n.format("item.fondue.spiritBottleRequired.hint"));
+		else
+			tooltip.add(I18n.format("item.fondue.spiritBottleUseless.hint"));
 	}
 }

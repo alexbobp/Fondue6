@@ -65,7 +65,7 @@ public class ModuleSpiritGraves extends Module {
 	
 	@Override
 	public void onPreInit(FMLPreInitializationEvent e) {
-		EntityRegistry.registerModEntity(new ResourceLocation("fondue", "spirit_grave"), EntityGrave.class, "spirit_grave", Fondue.nextEntityId++, Fondue.inst, 64, 2, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("fondue", "spirit_grave"), EntityGrave.class, "spirit_grave", Fondue.nextEntityId++, Fondue.inst, 512, 2, true);
 		GameRegistry.register(SPIRIT = new SoundEvent(new ResourceLocation("fondue", "spirit")).setRegistryName("spirit"));
 		GameRegistry.register(DISPEL = new SoundEvent(new ResourceLocation("fondue", "dispel")).setRegistryName("dispel"));
 		GRAVE = new ItemSpiritBottle().setUnlocalizedName("fondue.spiritBottle").setRegistryName("spirit_bottle").setMaxStackSize(3);
@@ -74,8 +74,8 @@ public class ModuleSpiritGraves extends Module {
 				"%^%",
 				"#@#",
 				" # ",
-				'^', Items.DIAMOND,
-				'%', Blocks.CHEST,
+				'^', "gemDiamond",
+				'%', "blockChest",
 				'@', Items.ENDER_PEARL,
 				'#', "blockGlass"
 		));
