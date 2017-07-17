@@ -24,15 +24,15 @@ public class PotionResurrectionSickness extends Potion {
 		return true;
 	}
 	
-	@Override
-	public void performEffect(EntityLivingBase elb, int amp) {
-		if (elb instanceof EntityPlayer) {
-			// death isn't a food source, just a sneaky saturation source
-			FoodStats foods = ((EntityPlayer)elb).getFoodStats();
-			float sat = foods.getSaturationLevel();
-			if (sat >= 1 && sat < 12) foods.setFoodSaturationLevel(sat + 0.03f);
-		}
-	}
+//	@Override TODO
+//	public void performEffect(EntityLivingBase elb, int amp) {
+//		if (elb instanceof EntityPlayer) {
+//			// death isn't a food source, just a sneaky saturation source
+//			FoodStats foods = ((EntityPlayer)elb).getFoodStats();
+//			float sat = foods.getSaturationLevel();
+//			if (sat >= 1 && sat < 12) foods.setFoodSaturationLevel(sat + 0.03f);
+//		}
+//	}
 	
 	@Override
 	public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
