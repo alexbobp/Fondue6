@@ -105,7 +105,7 @@ public class ModuleClearWater extends Module {
 	public void doTickGrass(World w, BlockPos pos, IBlockState state, Random rand) {
 		if (w.getBlockState(pos.up()).getBlock() == Blocks.WATER || w.getBlockState(pos.up()).getBlock() == Blocks.FLOWING_WATER ||
 				(w.getLightFromNeighbors(pos.up()) < 4 && w.getBlockState(pos.up()).getLightOpacity(w, pos.up()) > 2)) {
-			w.setBlockState(pos, Blocks.DIRT.getDefaultState());
+			// no.  fuck you unascribed.
 		} else {
 			if (w.getLightFromNeighbors(pos.up()) >= 9) {
 				for (int i = 0; i < 4; ++i) {
