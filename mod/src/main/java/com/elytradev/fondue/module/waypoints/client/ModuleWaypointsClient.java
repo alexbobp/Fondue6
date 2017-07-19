@@ -239,10 +239,4 @@ public class ModuleWaypointsClient extends ModuleClient {
 		widgets.remove(lookup.remove(pos));
 	}
 
-	public void onObeliskLoad(World world, BlockPos pos) {
-		ObeliskCompassWidget w = new ObeliskCompassWidget(pos);
-		baseWidgets.add(w);
-		widgets.add(w);
-	}
-
 }

@@ -75,7 +75,7 @@ public class ModuleSpiritGraves extends Module {
 				"#@#",
 				" # ",
 				'^', "gemDiamond",
-				'%', "blockChest",
+				'%', "chestWood",
 				'@', Items.ENDER_PEARL,
 				'#', "blockGlass"
 		));

@@ -28,7 +28,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 
 group = "com.elytradev"
-archivesBaseName = "Fondont"
+archivesBaseName = "Fondoot"
 version = config.version
 
 sourceCompatibility = 1.8
