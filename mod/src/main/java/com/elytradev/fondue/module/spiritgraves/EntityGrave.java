@@ -410,7 +410,6 @@ public class EntityGrave extends Entity {
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void onUpdate() {
 		super.onUpdate();
 		if (Fondue.isModuleLoaded(ModuleSpiritGravesClient.class)) {
