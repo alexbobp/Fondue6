@@ -39,7 +39,7 @@ public class EntityCompassWidget extends CoordinateCompassWidget {
     @Override public ResourceLocation getTexture() {return tex;}
     @Override public int getTexWidth() {return 8;}
     @Override public int getTexHeight() {return 8;}
-    @Override public boolean stillAlive() {return pointsTo.isEntityAlive();}
+    @Override public boolean stillAlive() {return !pointsTo.isDead;}
 
     @Override public void render() {
         Rendering.color3(getColor());
