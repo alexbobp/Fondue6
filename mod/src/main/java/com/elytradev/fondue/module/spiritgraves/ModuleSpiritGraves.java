@@ -20,6 +20,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -103,6 +104,7 @@ public class ModuleSpiritGraves extends Module {
 			if (grave.foundGrave && !grave.isEmpty()) {
 				grave.clear(player);
 				player.world.spawnEntity(grave);
+				player.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1, 1);
 				if (grave.ejectBottle)
 					player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ,
 							new ItemStack(Items.GLASS_BOTTLE)));
